@@ -1,0 +1,455 @@
+/* CSS RESET */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* CSS RESET ENDS */
+
+/* my own reset */
+input {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --primary-clr: lightgreen;
+  --primary-hover-clr: hsl(120, 73%, 55%);
+  --primary-font-clr: black;
+  --background-clr: hsl(120, 73%, 95%);
+  --delete-btn-clr: gray;
+  --delete-btn-hover-clr: black;
+  --primary-icon-clr: hsl(0, 0%, 25%);
+  --todo-item-checked-clr: gray;
+  --outline-clr: black;
+  --textarea-bg-clr: var(--primary-clr);
+}
+
+[data-theme="dark"] {
+  --primary-clr: hsl(210, 10%, 23%);
+  --primary-font-clr: hsl(210, 17%, 98%);
+  --primary-hover-clr: hsl(208, 7%, 46%);
+  --todo-item-checked-clr: hsl(210, 14%, 83%);
+  --background-clr: hsl(210, 9%, 31%);
+  --delete-btn-hover-clr: hsl(210, 17%, 98%);
+  --outline-clr: hsl(210, 11%, 71%);
+  --primary-icon-clr: hsl(210, 14%, 83%);
+  --textarea-bg-clr: var(--primary-clr);
+  --textarea-fg-clr: var(--primary-font-clr);
+}
+
+* {
+  outline: 2px solid transparent;
+  outline-offset: 0;
+  transition:
+    outline 100ms ease,
+    outline-offset 100ms ease;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--outline-clr);
+  /* outline-offset: 0.25rem; */
+  outline-offset: 0.375rem;
+
+}
+
+body {
+  color: var(--primary-font-clr);
+  background-color: var(--background-clr);
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  background-color: var(--primary-clr);
+  padding-block: 1rem;
+  padding-inline: 1.5rem;
+  align-items: stretch;
+}
+
+.home-icon,
+.back-icon-link {
+  margin-inline-end: auto;
+}
+
+.home-icon {
+  background-color: var(--primary-icon-clr);
+  color: var(--primary-clr);
+}
+
+.fa-solid {
+  color: var(--primary-font-clr);
+  width: 1rem;
+  height: 1rem;
+}
+
+.circular-icon-btn {
+  background-color: var(--primary-clr);
+  border-radius: 100%;
+  padding-inline: 0.75rem;
+  padding-block: 0.5rem;
+  border: 2px solid var(--primary-font-clr);
+  
+}
+
+.back-icon-link {
+  display: block;
+  text-decoration: none;
+  border-radius: 100%;
+}
+
+.back-icon {
+  display: grid;
+  justify-content: center;
+  place-items: center;
+
+  width: 2.625rem;
+  height: 2.625rem;
+  background-color: var(--primary-icon-clr);
+  color: var(--primary-clr);
+}
+
+.back-btn-span {
+  width: 0;
+  height: 0;
+  border-top: 0.75rem solid transparent;
+  border-bottom: 0.75rem solid transparent;
+  border-right: 0.75rem solid var(--primary-clr);
+  background-color: var(--primary-icon-clr);
+  transform: translateX(-25%);
+
+}
+
+.basic-btn-style {
+  padding-block: 0.5rem;
+  padding-inline: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.all-todos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  width: min(100vw, 600px);
+  margin-inline: auto;
+  margin-block-start: 3rem;
+  padding: 1.5rem;
+  padding-block-start: 0;
+  font-size: 1.125rem;
+  border-radius: 0.75rem;
+}
+
+.add-todo-item-form {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin-inline: auto;
+  width: 75vw;
+  justify-content: center;
+}
+
+.add-todo-item-form>input[type=text] {
+  flex-grow: 4;
+  padding: 0.75rem;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+}
+
+.add-todo-item-form>button {
+  flex-grow: 1;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+}
+
+.all-todo-wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.all-todo-wrapper>ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style-type: none;
+  width: 75vw;
+  padding: 1rem;
+  margin-inline: auto;
+  margin-block-start: 1.5rem;
+  border: 2px solid gray;
+  border-radius: 0.5rem;
+}
+
+.todo-list-card-link {
+  text-decoration: none;
+  color: inherit;
+  margin-inline-end: auto;
+  width: 100%;
+  overflow: hidden;
+}
+
+.todo-list-card {
+  background-color: var(--primary-clr);
+  padding-block: 1rem;
+  padding-inline: 1.5rem;
+  border-radius: 0.5rem;
+  flex-grow: 1;
+}
+
+.todo-item {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: start;
+  font-size: 1.125rem;
+}
+
+.error-message {
+  background-color: var(--primary-clr);
+  margin-block-start: 1rem;
+  margin-inline: auto;
+  padding-block: 1rem;
+  padding-inline: 1.5rem;
+  width: 75vw;
+  font-size: 1.125rem;
+}
+
+.todo-list-container {
+  margin-inline: auto;
+  margin-block-start: 3rem;
+  padding-inline: 1.5rem;
+  padding-block: 1.5rem;
+
+  width: min(100vw, calc(600px - 3rem));
+  font-size: 1.125rem;
+  border: 2px solid --;
+  border-radius: 0.75rem;
+  background-color: var(--primary-clr);
+}
+
+.todo-list-card {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.todo-delete-button.todo-list-delete-button {
+  align-self: flex-start;
+}
+
+.todo-list-title-container {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  padding-inline: 0.5rem;
+  padding-block: 0.5rem;
+
+  align-items: center;
+  margin-block-end: 1.5rem;
+}
+
+.todo-list-title {
+  flex-grow: 1;
+}
+
+.todo-list-title>input[type=text] {
+  width: 100%;
+  background-color: var(--primary-clr);
+  color: var(--primary-font-clr);
+  display: block;
+  border: none;
+}
+
+.todo-list-items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todo-item {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  padding-inline: 0.5rem;
+  padding-block: 0.25rem;
+}
+
+.todo-item:hover {
+  background-color: var(--primary-hover-clr);
+}
+
+.todo-item-description {
+  flex-grow: 1;
+  align-self: center;
+  
+  background-color: var(--primary-clr);
+}
+
+.todo-item-completed>.todo-item-description {
+  color: var(--todo-item-checked-clr);
+}
+
+.todo-item-description>input[type=text] {
+  display: block;
+  width: 100%;
+  height: 100%;
+  
+  background-color: var(--primary-clr);
+  color: var(--primary-font-clr);
+  border: none;
+}
+
+.todo-item:hover .todo-item-description {
+  background-color: var(--primary-hover-clr);
+}
+
+.todo-item:hover .todo-item-description>input[type=text] {
+  background-color: var(--primary-hover-clr);
+}
+
+
+.todo-item>input[type=checkbox] {
+  transform: scale(1.5);
+  border-radius: 50%;
+  cursor: pointer;
+  align-self: center;
+}
+
+.todo-item>input[type=checkbox]:focus-visible {
+  outline: 1px solid var(--outline-clr);
+  outline-offset: 0.125rem;
+}
+
+.todo-delete-button {
+  background-color: var(--primary-clr);
+  border: 2px solid var(--delete-btn-clr);
+  color: var(--delete-btn-clr);
+  transform: scale(0.75);
+  border-radius: 50%;
+  align-self: center;
+}
+
+.todo-delete-button:hover {
+  border: 2px solid var(--delete-btn-hover-clr);
+  color: var(--delete-btn-hover-clr);
+}
+
+.todo-item:hover .todo-item-delete-button {
+  background-color: var(--primary-hover-clr);
+}
+
+.todo-list-completed-text {
+  margin-block-start: 1rem;
+  margin-inline-start: 0.75rem;
+}
+
+.add-todo-item-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.add-todo-item-textarea {
+  display: block;
+  margin: 0;
+  margin-block-end: 1rem;
+  margin-inline: auto;
+  padding: 0.75rem;
+  height: 100%;
+  width: min(90vw, calc(600px - 3rem));
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+  
+  resize: none;
+  overflow-y: auto;
+  max-height: calc(1.125rem * 1.5 * 4 + 1.5rem);
+  background-color: var(--textarea-bg-clr);
+  color: var(--textarea-fg-clr);
+}
+
+.add-todo-list-btn {
+  display: grid;
+  justify-content: center;
+  place-items: center;
+  color: inherit;
+  font-size: calc(1.125rem * 1.5);
+  font-weight: bolder;
+  border: none;  
+}
