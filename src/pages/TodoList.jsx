@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useDetectClickOutside } from "react-detect-click-outside";
-
-// components
 import { useContext, useState } from "react";
 
 // components
 import TodoItem from "../components/TodoItem";
 import AddTodoItem from "../components/AddTodoItem";
 import TodoListDeleteButton from "../components/TodoListDeleteButton";
+
+// external components
+import TextareaAutosize from "react-textarea-autosize";
 
 // contexts
 import { AllTodosContext } from "../contexts/AllTodosContext";
@@ -18,13 +19,41 @@ function TodoList() {
   const { todoListId } = useParams();
   const { allTodos, setAllTodos } = useContext(AllTodosContext);
 
+  // const todoListIndex =
+  //   allTodos.findIndex(todoListObj =>
+  //     (todoListObj.todo_list_id === todoListId)
+  //   );
+
+  // const title = allTodos[todoListIndex]['title'];
+  // const todoItems = allTodos[todoListIndex]['todo_items'];
+
   const todoListIndex =
     allTodos.findIndex(todoListObj =>
       (todoListObj.todo_list_id === todoListId)
     );
 
-  const title = allTodos[todoListIndex]['title'];
-  const todoItems = allTodos[todoListIndex]['todo_items'];
+  // if(todoListIndex === -1) {
+  //   return (<div>Loading...</div>);
+  // }
+
+  // const title = allTodos[todoListIndex]['title'] || "(untitled)";
+  // const todoItems = allTodos[todoListIndex]['todo_items'] || [];
+
+  const title =
+    (todoListIndex !== -1) ? (
+      allTodos[todoListIndex]['title']
+
+    ) : (
+      "(untitled)"
+    );
+
+  const todoItems =
+    (todoListIndex !== -1) ? (
+      allTodos[todoListIndex]['todo_items']
+
+    ) : (
+      []
+    );
 
   const [
     isTodoListTitleEditing,
@@ -45,7 +74,7 @@ function TodoList() {
 
   if (isTodoListTitleEditing) {
     todoListTitleJSX = (
-      <input
+      <TextareaAutosize
         type="text"
         value={todoListInputValue}
         onChange={handleInputChange}
@@ -60,10 +89,23 @@ function TodoList() {
   }
 
   let todoListCompletedTextJSX;
+  // const totalCompletedTodoItems =
+  //   allTodos[todoListIndex]["todo_items"]
+  //     .filter(todoItemObj => (todoItemObj.completed === true))
+  //     .length;
+
   const totalCompletedTodoItems =
-    allTodos[todoListIndex]["todo_items"]
-      .filter(todoItemObj => (todoItemObj.completed === true))
-      .length;
+    (todoListIndex !== -1) ? (
+      allTodos[todoListIndex]["todo_items"]
+        .filter(todoItemObj => (todoItemObj.completed === true))
+        .length
+
+    ) : (
+      0
+    );
+
+
+
 
   if (totalCompletedTodoItems > 0) {
     todoListCompletedTextJSX = (

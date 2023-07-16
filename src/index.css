@@ -78,10 +78,17 @@ select {
 /* CSS RESET ENDS */
 
 /* my own reset */
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 input {
   padding: 0;
   margin: 0;
 }
+
+/* end: my own reset */
 
 :root {
   --primary-clr: lightgreen;
@@ -291,6 +298,7 @@ body {
 .todo-list-container {
   margin-inline: auto;
   margin-block-start: 3rem;
+  margin-block-end: 12rem;
   padding-inline: 1.5rem;
   padding-block: 1.5rem;
 
@@ -325,20 +333,29 @@ body {
 
 .todo-list-title {
   flex-grow: 1;
+  white-space: pre-line;
 }
 
-.todo-list-title>input[type=text] {
+.todo-list-title>textarea {
   width: 100%;
   background-color: var(--primary-clr);
   color: var(--primary-font-clr);
   display: block;
   border: none;
+  resize: none;
+  padding: 0;
 }
 
 .todo-list-items-container {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.todo-list-items-container > * {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
 }
 
 .todo-item {
@@ -359,13 +376,14 @@ body {
   align-self: center;
   
   background-color: var(--primary-clr);
+  white-space: pre-line;
 }
 
 .todo-item-completed>.todo-item-description {
   color: var(--todo-item-checked-clr);
 }
 
-.todo-item-description>input[type=text] {
+.todo-item-description>textarea {
   display: block;
   width: 100%;
   height: 100%;
@@ -373,13 +391,15 @@ body {
   background-color: var(--primary-clr);
   color: var(--primary-font-clr);
   border: none;
+  padding: 0;
+  resize: none;
 }
 
 .todo-item:hover .todo-item-description {
   background-color: var(--primary-hover-clr);
 }
 
-.todo-item:hover .todo-item-description>input[type=text] {
+.todo-item:hover .todo-item-description>textarea {
   background-color: var(--primary-hover-clr);
 }
 
@@ -388,7 +408,8 @@ body {
   transform: scale(1.5);
   border-radius: 50%;
   cursor: pointer;
-  align-self: center;
+  align-self: flex-start;
+  margin-top: 0.5rem;
 }
 
 .todo-item>input[type=checkbox]:focus-visible {
@@ -402,7 +423,7 @@ body {
   color: var(--delete-btn-clr);
   transform: scale(0.75);
   border-radius: 50%;
-  align-self: center;
+  align-self: flex-start;
 }
 
 .todo-delete-button:hover {
@@ -442,6 +463,10 @@ body {
   max-height: calc(1.125rem * 1.5 * 4 + 1.5rem);
   background-color: var(--textarea-bg-clr);
   color: var(--textarea-fg-clr);
+}
+
+.add-todo-item-textarea::-webkit-scrollbar {
+  display: none;
 }
 
 .add-todo-list-btn {

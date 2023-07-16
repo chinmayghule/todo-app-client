@@ -14,6 +14,9 @@ import AllTodos from './components/AllTodos';
 
 function App() {
 
+  // experimental temporary.
+  const [signinError, setSigninError] = useState(null);
+  
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "light"
   );
@@ -25,11 +28,21 @@ function App() {
     },
     {
       path: '/signup',
-      element: <Signup />,
+      element:
+        <Signup
+          signinError={signinError}
+          setSigninError={setSigninError}
+        />,
     },
     {
       path: '/todos',
-      element: <Todos theme={theme} setTheme={setTheme} />,
+      element:
+        <Todos
+          theme={theme}
+          setTheme={setTheme}
+          signinError={signinError}
+          setSigninError={setSigninError}
+        />,
       children: [
         {
           index: true,

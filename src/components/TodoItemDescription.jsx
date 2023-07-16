@@ -7,6 +7,10 @@ import { AllTodosContext } from "../contexts/AllTodosContext";
 // utility
 import { getTodoIndexes } from "../../utility/getTodoIndexes";
 
+// external components
+import TextareaAutosize from "react-textarea-autosize";
+
+
 function TodoItemDescription({
   description,
   todoListId,
@@ -26,7 +30,7 @@ function TodoItemDescription({
 
   if (isEditing) {
     todoDescriptionJSX = (
-      <input
+      <TextareaAutosize
         type="text"
         value={inputValue}
         onChange={handleInputChange}
@@ -90,8 +94,8 @@ function TodoItemDescription({
       );
 
       const trigger =
-        (e.target.nodeName.toLowerCase() === 'input') &&
-        (e.target.type === 'text');
+        (e.target.nodeName.toLowerCase() === 'textarea') &&
+        (e.target.type === 'textarea');
 
       if (trigger) {
         if (e.shiftKey && e.key === 'Tab') {

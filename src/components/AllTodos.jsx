@@ -18,13 +18,20 @@ function AllTodos() {
       todo_items: [],
     };
 
-    const updatedAllTodos = [...allTodos, newTodoListObj];
+    // const updatedAllTodos = [...allTodos, newTodoListObj];
+    let updatedAllTodos;
+
+    if (allTodos === null || allTodos === undefined) {
+      updatedAllTodos = [newTodoListObj];
+    } else {
+      updatedAllTodos = [...allTodos, newTodoListObj];
+    }
 
     setAllTodos(updatedAllTodos);
     navigate(`/todos/${newTodoListObj.todo_list_id}`);
   }
 
-  
+
   return (
     <div className="all-todos-container">
       {allTodos?.map(todoListObj => (
