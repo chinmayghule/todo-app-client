@@ -80,6 +80,7 @@ function TodoList() {
         onChange={handleInputChange}
         onBlur={handleTitleBlur}
         tabIndex={0}
+        maxLength={100}
         autoFocus
       />
     );
@@ -116,6 +117,27 @@ function TodoList() {
 
   } else {
     null;
+  }
+
+  let uncheckedTodoListItems =
+    todoItems
+      .filter(todoItemsObj => (todoItemsObj.completed === false))
+      .map(todoItemsObj => (
+        <TodoItem
+          key={todoItemsObj.id}
+          description={todoItemsObj.description}
+          completed={todoItemsObj.completed}
+          todoListId={todoListId}
+          todoItemId={todoItemsObj.id}
+        />
+      ));
+
+  if (uncheckedTodoListItems.length === 0) {
+    uncheckedTodoListItems = (
+      <div className="no-unchecked-todo-items-msg">
+        No unchecked todos
+      </div>
+    );
   }
 
 
@@ -177,7 +199,7 @@ function TodoList() {
 
       <div className="todo-list-items-container">
         <div className="todo-list-unchecked-items">
-          {todoItems
+          {/* {todoItems
             .filter(todoItemsObj => (todoItemsObj.completed === false))
             .map(todoItemsObj => (
               <TodoItem
@@ -187,7 +209,8 @@ function TodoList() {
                 todoListId={todoListId}
                 todoItemId={todoItemsObj.id}
               />
-            ))}
+            ))} */}
+          {uncheckedTodoListItems}
         </div>
 
         {todoListCompletedTextJSX}

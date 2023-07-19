@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 // contexts
 import { AllTodosContext } from "../contexts/AllTodosContext";
@@ -17,18 +18,21 @@ function AddTodoItem({ todoListIndex }) {
 
 
   function handleKeyDown(e) {
-    if (e.key !== 'Enter') return;
 
-    e.preventDefault();
-
-    addTodoItemToLocalState(e.target.value);
-    setAddTodoTextareaInputValue("");
+    
+    // keyCode 13 === 'Enter' key
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      
+      addTodoItemToLocalState(e.target.value);
+      setAddTodoTextareaInputValue("");
+    }
   }
 
   function addTodoItemToLocalState(newTodoItemText) {
     const allTodosCopy = [...allTodos];
     const newTodoItemObj = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       description: newTodoItemText,
       completed: false,
     };
@@ -50,7 +54,6 @@ function AddTodoItem({ todoListIndex }) {
         placeholder="Add a todo..."
         value={addTodoTextareaInputValue}
         onChange={(e) => setAddTodoTextareaInputValue(e.target.value)}
-        autoFocus
       />
     </div>
   );
