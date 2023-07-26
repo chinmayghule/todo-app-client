@@ -125,7 +125,7 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
   // GET TODOS
   useEffect(() => {
     if (userGoogleUID.current) {
-      fetch(`http://192.168.43.210:3000/todos/${userGoogleUID.current}`)
+      fetch(`${VITE_GTODOS_API_URL}/todos/${userGoogleUID.current}`)
         .then(response => response.json())
         .then(data => {
           setAllTodos(data);
@@ -148,7 +148,8 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
   useEffect(() => {
     const updateTodosToDatabase = async () => {
       // update todos to database.
-      const url = 'http://192.168.43.210:3000/todos';
+      const url = `${import.meta.env.VITE_GTODOS_API_URL}/todos`;
+      console.log(import.meta.env.VITE_GTODOS_API_URL);
 
       const requestBody = {
         userId: userGoogleUID.current,

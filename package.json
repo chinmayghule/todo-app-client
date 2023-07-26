@@ -7,15 +7,18 @@
     "dev": "vite",
     "devHost": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "npm run build && npm run preview"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "firebase": "^9.22.2",
     "react": "^18.2.0",
     "react-detect-click-outside": "^1.1.7",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.13.0",
-    "react-textarea-autosize": "^8.5.2"
+    "react-textarea-autosize": "^8.5.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
