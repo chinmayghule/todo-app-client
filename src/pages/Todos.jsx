@@ -125,7 +125,7 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
   // GET TODOS
   useEffect(() => {
     if (userGoogleUID.current) {
-      fetch(`${VITE_GTODOS_API_URL}/todos/${userGoogleUID.current}`)
+      fetch(`${import.meta.env.VITE_GTODOS_API_URL}/todos/${userGoogleUID.current}`)
         .then(response => response.json())
         .then(data => {
           setAllTodos(data);
