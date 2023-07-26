@@ -41,7 +41,7 @@ function Homepage() {
 
   return (
     <section className="homepage-wrapper">
-      <span className="homepage-banner">gTodo</span>
+      <span className="homepage-banner">gTodos</span>
       <h2 className="homepage-banner-subtext">
         Your go-to place for doing your tasks!
       </h2>
