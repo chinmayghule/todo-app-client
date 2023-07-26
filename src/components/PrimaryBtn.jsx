@@ -10,7 +10,7 @@ function PrimaryBtn({ pathname }) {
   )) {
     primaryBtnJSX = (
       <div className="home-icon basic-btn-style">
-        gTodo
+        gTodos
       </div>
     );
 

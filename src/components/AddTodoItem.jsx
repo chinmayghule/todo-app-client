@@ -19,11 +19,13 @@ function AddTodoItem({ todoListIndex }) {
 
   function handleKeyDown(e) {
 
-    
+
     // keyCode 13 === 'Enter' key
     if (e.keyCode === 13) {
       e.preventDefault();
-      
+
+      if (e.target.value.length === 0) return;
+
       addTodoItemToLocalState(e.target.value);
       setAddTodoTextareaInputValue("");
     }
@@ -52,6 +54,7 @@ function AddTodoItem({ todoListIndex }) {
         cols="70"
         rows="1"
         placeholder="Add a todo..."
+        minLength={1}
         value={addTodoTextareaInputValue}
         onChange={(e) => setAddTodoTextareaInputValue(e.target.value)}
       />

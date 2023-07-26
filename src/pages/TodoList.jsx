@@ -17,27 +17,17 @@ import { AllTodosContext } from "../contexts/AllTodosContext";
 function TodoList() {
 
   const { todoListId } = useParams();
-  const { allTodos, setAllTodos } = useContext(AllTodosContext);
+  const {
+    allTodos,
+    setAllTodos,
+    username
+  } = useContext(AllTodosContext);
 
-  // const todoListIndex =
-  //   allTodos.findIndex(todoListObj =>
-  //     (todoListObj.todo_list_id === todoListId)
-  //   );
-
-  // const title = allTodos[todoListIndex]['title'];
-  // const todoItems = allTodos[todoListIndex]['todo_items'];
 
   const todoListIndex =
     allTodos.findIndex(todoListObj =>
       (todoListObj.todo_list_id === todoListId)
     );
-
-  // if(todoListIndex === -1) {
-  //   return (<div>Loading...</div>);
-  // }
-
-  // const title = allTodos[todoListIndex]['title'] || "(untitled)";
-  // const todoItems = allTodos[todoListIndex]['todo_items'] || [];
 
   const title =
     (todoListIndex !== -1) ? (
@@ -90,10 +80,6 @@ function TodoList() {
   }
 
   let todoListCompletedTextJSX;
-  // const totalCompletedTodoItems =
-  //   allTodos[todoListIndex]["todo_items"]
-  //     .filter(todoItemObj => (todoItemObj.completed === true))
-  //     .length;
 
   const totalCompletedTodoItems =
     (todoListIndex !== -1) ? (
@@ -104,9 +90,6 @@ function TodoList() {
     ) : (
       0
     );
-
-
-
 
   if (totalCompletedTodoItems > 0) {
     todoListCompletedTextJSX = (
@@ -141,6 +124,7 @@ function TodoList() {
   }
 
 
+  // functions
   function handleTitleClick() {
     setIsTodoListTitleEditing(true);
   }
@@ -188,6 +172,7 @@ function TodoList() {
 
           onFocus={handleTitleFocus}
           tabIndex={0}
+          autoFocus
         >
           {todoListTitleJSX}
         </div>
@@ -199,17 +184,6 @@ function TodoList() {
 
       <div className="todo-list-items-container">
         <div className="todo-list-unchecked-items">
-          {/* {todoItems
-            .filter(todoItemsObj => (todoItemsObj.completed === false))
-            .map(todoItemsObj => (
-              <TodoItem
-                key={todoItemsObj.id}
-                description={todoItemsObj.description}
-                completed={todoItemsObj.completed}
-                todoListId={todoListId}
-                todoItemId={todoItemsObj.id}
-              />
-            ))} */}
           {uncheckedTodoListItems}
         </div>
 

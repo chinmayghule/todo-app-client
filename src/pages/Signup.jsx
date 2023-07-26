@@ -1,8 +1,12 @@
 import { auth, provider } from "../config/firebase";
-import { getAuth, getRedirectResult, onAuthStateChanged, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { getAuth, getRedirectResult, onAuthStateChanged, signInWithRedirect } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+// components
 import Loading from "../components/Loading";
+import GoogleSignInButton from "../components/GoogleSignInButton";
+
 
 function Signup({ signinError, setSigninError }) {
 
@@ -67,15 +71,14 @@ function Signup({ signinError, setSigninError }) {
       <section className="signup-wrapper">
         <div className="signup-content">
           <h2>Sign In With Google</h2>
-          <button
-            className="signup-btn basic-btn-style"
-            onClick={signInWithGoogle}
+          <GoogleSignInButton onClickHandler={signInWithGoogle} />
+          <p>or</p>
+          <Link
+            to="/"
+            className="return-to-homepage-link"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 488 512"><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg>
-            <span>
-              Sign In
-            </span>
-          </button>
+            Return to Homepage
+          </Link>
           {signinError && <div>{signinError}</div>}
         </div>
       </section>

@@ -7,6 +7,7 @@ import { AllTodosContext } from "../contexts/AllTodosContext.js";
 
 // components
 import PrimaryBtn from "../components/PrimaryBtn.jsx";
+import Loading from "../components/Loading.jsx";
 
 
 
@@ -28,6 +29,7 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
   ] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [username, setUsername] = useState(null);
 
   // refs
   const databaseUpdateTimerIdRef = useRef(null);
@@ -67,11 +69,12 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
     signOut(auth)
       .then(() => {
         console.log('Signout successful!');
-        setIsUserSignedIn(false); // experimental. delete it if stuff doesn't work.
+        setIsUserSignedIn(false);
         navigate('/signup');
+        userGoogleUID.current = null;
 
         // experimental
-        userGoogleUID.current = null;
+        setUsername(null);
       })
       .catch((error) => {
         console.log(error);
@@ -102,6 +105,9 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
 
       // unique identifier: user.uid
       userGoogleUID.current = user?.uid;
+
+      // experimental.
+      setUsername(user.displayName);
     });
 
     return () => unsubscribe();
@@ -123,6 +129,7 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
         .then(response => response.json())
         .then(data => {
           setAllTodos(data);
+          gotInitialTodos.current = true;
           if (errorMessage) {
             setErrorMessage("");
           }
@@ -130,11 +137,8 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
         .catch(error => {
           console.log(`error while fetching todolists.\n${error}`);
           setErrorMessage('error while fetching todolists');
-        })
-        .finally(() => {
-          gotInitialTodos.current = true;
-        }
-        );
+          gotInitialTodos.current = false;
+        });
     }
 
   }, [userGoogleUID.current, errorMessage]);
@@ -157,19 +161,20 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
         body: JSON.stringify(requestBody)
       };
 
-      fetch(url, requestOptions)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-          if (errorMessage) {
-            setErrorMessage("");
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          setErrorMessage('error while updating todolists');
-        });
-
+      if (gotInitialTodos.current) {
+        fetch(url, requestOptions)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            if (errorMessage) {
+              setErrorMessage("");
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            setErrorMessage('error while updating todolists');
+          });
+      }
     };
 
     const debounceUpdate = () => {
@@ -213,6 +218,15 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
   }, []);
 
 
+  // return.
+
+  if (
+    (isLoading === true) ||
+    (isLoading === false && isUserSignedIn === false)
+  ) {
+    return <Loading />;
+  }
+
   return (
     <section className="todos-wrapper">
       <nav className="navbar">
@@ -239,7 +253,11 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
         <>
           {errorMessageJSX}
 
-          < AllTodosContext.Provider value={{ allTodos, setAllTodos }}>
+          < AllTodosContext.Provider value={{
+            allTodos,
+            setAllTodos,
+            username
+          }}>
             <Outlet />
           </AllTodosContext.Provider>
         </>
