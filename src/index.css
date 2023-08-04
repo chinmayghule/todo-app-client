@@ -309,8 +309,6 @@ body {
   font-size: 1.125rem;
   background-color: var(--primary-clr);
 
-  /* border-radius: 0.75rem; */
-  /* width: min(100vw, calc(600px - 3rem)); */
   border-radius: 0;
   width: 100vw;
 }
@@ -532,7 +530,9 @@ body[data-theme="dark"] .add-todo-item-textarea {
 .loading-spinner-container {
   min-height: 100vh;
   max-height: 100vh;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   justify-content: center;
   align-items: center;
 }
@@ -551,6 +551,11 @@ body[data-theme="dark"] .add-todo-item-textarea {
     transform: rotate(360deg);
   }
 }
+
+.cold-start-warning {
+  text-align: center;  
+}
+
 
 
 /* signup page */

@@ -63,6 +63,23 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
       <i className="fa-solid fa-right-from-bracket"></i>
     );
 
+  const todosJSX =
+    (!gotInitialTodos.current) ? (
+      <Loading giveColdStartWarning={true} />
+    ) : (
+      <>
+        {errorMessageJSX}
+
+        < AllTodosContext.Provider value={{
+          allTodos,
+          setAllTodos,
+          username
+        }}>
+          <Outlet />
+        </AllTodosContext.Provider>
+      </>
+    );
+
 
   // functions
   function handleSignout() {
@@ -251,18 +268,7 @@ function Todos({ theme, setTheme, signinError, setSigninError }) {
         <div>You are not connected to the Internet</div>
 
       ) : (
-        <>
-          {errorMessageJSX}
-
-          < AllTodosContext.Provider value={{
-            allTodos,
-            setAllTodos,
-            username
-          }}>
-            <Outlet />
-          </AllTodosContext.Provider>
-        </>
-
+        todosJSX
       )}
 
     </section >
